@@ -2,10 +2,6 @@
 
 将 [html-ppt](https://github.com/lewislulu/html-ppt-skill) 生成的 HTML 演示文稿一键转换为 PPTX 文件。
 
-A companion tool for [html-ppt](https://github.com/lewislulu/html-ppt-skill) that converts HTML presentations to PPTX in one click.
-
----
-
 ## 工作原理
 
 1. **headless Chrome 截图**：利用 Chrome 的 `#/N` 深度链接，逐页将 HTML 渲染为 PNG 图片
@@ -14,17 +10,6 @@ A companion tool for [html-ppt](https://github.com/lewislulu/html-ppt-skill) tha
 因为是截图方式，PPTX 会 **100% 还原 HTML 的视觉效果**，包括字体、颜色、布局、渐变等。
 
 > **注意**：输出的 PPTX 中每页是一张图片，不可编辑文字。适合需要分享给只接受 PPTX 格式的场景。
-
-## How It Works
-
-1. **Headless Chrome screenshots**: Renders each slide to PNG via Chrome's `#/N` deep links
-2. **pptxgenjs assembly**: Embeds PNG images into PPTX, each filling the entire slide
-
-Since it uses screenshots, the PPTX **perfectly preserves the HTML visual output**, including fonts, colors, layout, and gradients.
-
-> **Note**: Each slide in the output PPTX is an image — text is not editable. Ideal for sharing with audiences that only accept PPTX format.
-
----
 
 ## 安装
 
@@ -46,29 +31,6 @@ git clone https://github.com/nlj626/html-to-pptx ~/.claude/skills/html-to-pptx
 ```
 
 安装后，在 Claude Code 中说"导出 PPTX"即可自动触发。
-
-## Installation
-
-### Prerequisites
-
-- **Google Chrome** (macOS default path: `/Applications/Google Chrome.app`)
-- **Node.js** >= 18
-- **pptxgenjs**: `npm install -g pptxgenjs`
-
-### Install as Claude Code Skill
-
-```bash
-# Method 1: via skills CLI (recommended)
-npx skills add nlj626/html-to-pptx
-
-# Method 2: manual
-mkdir -p ~/.claude/skills
-git clone https://github.com/nlj626/html-to-pptx ~/.claude/skills/html-to-pptx
-```
-
-After installation, just say "export to PPTX" in Claude Code to trigger.
-
----
 
 ## 使用方式
 
@@ -111,6 +73,74 @@ bash scripts/html-to-pptx.sh my-deck/index.html all -- --quality png
 - "导出 PPTX"
 - "把这个 HTML 转成 PPT"
 
+## 与 html-ppt 的关系
+
+本项目是 [html-ppt](https://github.com/lewislulu/html-ppt-skill) 的配套工具，将 HTML 演示文稿转换为通用 PPTX 格式，方便分享给不支持 HTML 的场景。
+
+html-ppt 使用 MIT 协议，本项目同样使用 MIT 协议，完全兼容。
+
+## 项目结构
+
+```
+html-to-pptx/
+├── SKILL.md              # Claude Code Skill 描述文件
+├── LICENSE              # MIT 许可证
+├── README.md            # 本文件
+├── .gitignore
+└── scripts/
+    ├── html-to-pptx.sh    # 主入口：截图 + 组装
+    ├── html-to-pptx.cjs    # PPTX 组装（pptxgenjs）
+    └── render.sh          # headless Chrome 截图
+```
+
+## 依赖说明
+
+| 依赖 | 用途 | 安装 |
+|------|------|------|
+| Google Chrome | headless 截图 | 系统自带 |
+| Node.js >= 18 | 运行 pptxgenjs | [nodejs.org](https://nodejs.org) |
+| pptxgenjs | PPTX 文件生成 | `npm install -g pptxgenjs` |
+
+## License
+
+MIT © 2026 picaro
+
+---
+
+# html-to-pptx
+
+A companion tool for [html-ppt](https://github.com/lewislulu/html-ppt-skill) that converts HTML presentations to PPTX in one click.
+
+## How It Works
+
+1. **Headless Chrome screenshots**: Renders each slide to PNG via Chrome's `#/N` deep links
+2. **pptxgenjs assembly**: Embeds PNG images into PPTX, each filling the entire slide
+
+Since it uses screenshots, the PPTX **perfectly preserves the HTML visual output**, including fonts, colors, layout, and gradients.
+
+> **Note**: Each slide in the output PPTX is an image — text is not editable. Ideal for sharing with audiences that only accept PPTX format.
+
+## Installation
+
+### Prerequisites
+
+- **Google Chrome** (macOS default path: `/Applications/Google Chrome.app`)
+- **Node.js** >= 18
+- **pptxgenjs**: `npm install -g pptxgenjs`
+
+### Install as Claude Code Skill
+
+```bash
+# Method 1: via skills CLI (recommended)
+npx skills add nlj626/html-to-pptx
+
+# Method 2: manual
+mkdir -p ~/.claude/skills
+git clone https://github.com/nlj626/html-to-pptx ~/.claude/skills/html-to-pptx
+```
+
+After installation, just say "export to PPTX" in Claude Code to trigger.
+
 ## Usage
 
 ### Command Line
@@ -152,35 +182,11 @@ After installation, say any of these in your conversation:
 - "export to PPTX"
 - "convert HTML to PPT"
 
----
-
-## 与 html-ppt 的关系
-
-本项目是 [html-ppt](https://github.com/lewislulu/html-ppt-skill) 的配套工具，将 HTML 演示文稿转换为通用 PPTX 格式，方便分享给不支持 HTML 的场景。
-
-html-ppt 使用 MIT 协议，本项目同样使用 MIT 协议，完全兼容。
-
 ## Relationship with html-ppt
 
 This is a companion tool for [html-ppt](https://github.com/lewislulu/html-ppt-skill). It converts HTML presentations to the widely-supported PPTX format for sharing in scenarios where HTML is not accepted.
 
 Both projects use the MIT License and are fully compatible.
-
----
-
-## 项目结构
-
-```
-html-to-pptx/
-├── SKILL.md              # Claude Code Skill 描述文件
-├── LICENSE              # MIT 许可证
-├── README.md            # 本文件
-├── .gitignore
-└── scripts/
-    ├── html-to-pptx.sh    # 主入口：截图 + 组装
-    ├── html-to-pptx.cjs    # PPTX 组装（pptxgenjs）
-    └── render.sh          # headless Chrome 截图
-```
 
 ## Project Structure
 
@@ -196,16 +202,6 @@ html-to-pptx/
     └── render.sh          # Headless Chrome screenshot
 ```
 
----
-
-## 依赖说明
-
-| 依赖 | 用途 | 安装 |
-|------|------|------|
-| Google Chrome | headless 截图 | 系统自带 |
-| Node.js >= 18 | 运行 pptxgenjs | [nodejs.org](https://nodejs.org) |
-| pptxgenjs | PPTX 文件生成 | `npm install -g pptxgenjs` |
-
 ## Dependencies
 
 | Dependency | Purpose | Install |
@@ -213,8 +209,6 @@ html-to-pptx/
 | Google Chrome | Headless screenshots | System |
 | Node.js >= 18 | Run pptxgenjs | [nodejs.org](https://nodejs.org) |
 | pptxgenjs | PPTX generation | `npm install -g pptxgenjs` |
-
----
 
 ## License
 
